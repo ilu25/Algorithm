@@ -21,7 +21,7 @@ public class Main {
             }
         }
         
-        System.out.println(sb);
+        System.out.print(sb);
     }
     
     public static void main(String args[]) throws Exception {
