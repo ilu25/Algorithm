@@ -1,14 +1,15 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
     public void solution() throws Exception {
-        Scanner sc = new Scanner(System.in);
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
-        int t = sc.nextInt();
+        int t = Integer.parseInt(br.readLine());
         for (int i = 0; i < t; i++) {
-        	int n = sc.nextInt();
-        	String start = sc.next();
-        	String end = sc.next();
+        	int n = Integer.parseInt(br.readLine());
+        	String start = br.readLine();
+        	String end = br.readLine();
         	
         	int w = 0; int b = 0;
         	for (int j = 0; j < n; j++) {
@@ -23,7 +24,6 @@ public class Main {
         	}
         	System.out.println(Math.min(w, b) + Math.abs(w - b));
         }
-        sc.close();
     }
     
     public static void main(String args[]) throws Exception {
