@@ -52,17 +52,11 @@ public class Main {
 		// 3x3 영역으로 분할 -> 추후 영역에 다른 색이 있으면 분할
 		int newSize = size / 3;
 		
-		partition(row, col, newSize);								// 왼쪽 위
-		partition(row, col + newSize, newSize);						// 중앙 위
-		partition(row, col + 2 * newSize, newSize);					// 오른쪽 위
-		
-		partition(row + newSize, col, newSize);						// 왼쪽 중간
-		partition(row + newSize, col + newSize, newSize);			// 중앙 중간
-		partition(row + newSize, col + 2 * newSize, newSize);		// 오른쪽 중간
-		
-		partition(row + 2 * newSize, col, newSize);					// 왼쪽 아래
-		partition(row + 2 * newSize, col + newSize, newSize);		// 중앙 아래
-		partition(row + 2 * newSize, col + 2 * newSize, newSize);	// 오른쪽 아래
+		for (int i = row; i < row + size; i += newSize) {
+			for (int j = col; j < col + size; j += newSize) {
+				partition(i, j, newSize);
+			}
+		}
  
 	}
  
