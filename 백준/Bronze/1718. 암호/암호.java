@@ -1,26 +1,27 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		String sentence = sc.nextLine();
-		String encoding = sc.nextLine();
+		char[] sentence = br.readLine().toCharArray();
+		char[] encoding = br.readLine().toCharArray();
 		
-		for (int i = 0, j = 0; i < sentence.length(); i++, j++) {
-			if (j == encoding.length()) {
+		for (int i = 0, j = 0; i < sentence.length; i++, j++) {
+			if (j == encoding.length) {
 				j = 0;
 			}
-			if (sentence.charAt(i) == ' ') {
+			if (sentence[i] == ' ') {
 				System.out.print(" ");			
 				continue;
 			}
-			if (sentence.charAt(i) <= encoding.charAt(j)) {
-				System.out.print((char)(sentence.charAt(i) - encoding.charAt(j) + 26 + 'a' - 1));
+			if (sentence[i] <= encoding[j]) {
+				System.out.print((char)(sentence[i] - encoding[j] + 26 + 'a' - 1));
 				continue;
 			}
-			System.out.print((char)(sentence.charAt(i) - encoding.charAt(j) + 'a' - 1));
+			System.out.print((char)(sentence[i] - encoding[j] + 'a' - 1));
 		}
-		sc.close();
 	}
 }
