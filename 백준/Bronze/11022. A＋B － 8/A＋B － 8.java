@@ -18,6 +18,6 @@ class Main {
                     .append(A).append(" + ").append(B)
                     .append(" = ").append(A + B).append("\n");
         }
-        System.out.println(sb);
+        System.out.println(sb.toString());
     }
 }
