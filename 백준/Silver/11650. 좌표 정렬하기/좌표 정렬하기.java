@@ -1,38 +1,36 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-// 11:36 ~ 11:56
+// 다른 풀이
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(br.readLine());
+        int[][] arr = new int[N][2];
 
-        LinkedList<Integer>[] cordinate = new LinkedList[20_0001];
-        for (int i = 0; i < cordinate.length; i++) {
-            cordinate[i] = new LinkedList<>();
-        }
-
-        for (int i = 0; i < N; i++) {
+        StringTokenizer st;
+        for(int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
-            cordinate[x + 10_0000].add(y);
+            arr[i][0] = Integer.parseInt(st.nextToken());
+            arr[i][1] = Integer.parseInt(st.nextToken());
         }
 
-        for (LinkedList<Integer> yList : cordinate) {
-            Collections.sort(yList);
-        }
+        // 핵심!
+        Arrays.sort(arr, (e1, e2) -> {
+            if (e1[0] == e2[0]) {
+                return e1[1] - e2[1];
+            }
+            else {
+                return e1[0] - e2[0];
+            }
+        });
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < cordinate.length; i++) {
-            while (!cordinate[i].isEmpty()) {
-                sb.append(i - 10_0000).append(" ").append(cordinate[i].poll()).append("\n");
-            }
+        for(int i = 0 ; i< N ; i++) {
+            sb.append(arr[i][0]).append(" ").append(arr[i][1]).append('\n');
         }
         System.out.println(sb);
     }
