@@ -15,11 +15,9 @@ class Main {
     }
 
     static int gcd(int a, int b) {
-        while (b != 0) {
-            int r = a % b;
-            a = b;
-            b = r;
+        if (b == 0) {
+            return a;
         }
-        return a;
+        return gcd(b, a % b);
     }
 }
