@@ -1,32 +1,29 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int M = sc.nextInt();
-        int N = sc.nextInt();
-        boolean[] isPrime = new boolean[N + 1];
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] input = br.readLine().split(" ");
+        int M = Integer.parseInt(input[0]);
+        int N = Integer.parseInt(input[1]);
 
-        for (int i = 2; i < N + 1; i++) {
-            isPrime[i] = true;
-        }
-
+        boolean[] primes = new boolean[N + 1];
+        Arrays.fill(primes, true);
+        primes[0] = false;
+        primes[1] = false;
         for (int i = 2; i <= Math.sqrt(N); i++) {
-            if (!isPrime[i]) {
-                continue;
-            }
-            // i의 배수 = 소수 X
-            for (int j = i * 2; j <= N; j += i) {
-                if (!isPrime[j]) {
-                    continue;
-                }
-                isPrime[j] = false;
+            for (int j = 2; i * j <= N; j++) {
+                primes[i * j] = false;
             }
         }
-        for (int i = M; i <= N; i++) {
-            if (isPrime[i]) {
-                System.out.println(i);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = M; i < primes.length; i++) {
+            if (primes[i]) {
+                sb.append(i).append("\n");
             }
         }
+        System.out.println(sb);
     }
 }
