@@ -1,47 +1,50 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 
-public class Main {
-
+class Main {
+    static List<Integer>[] list;
     static boolean[] visited;
-    static ArrayList<Integer>[] A;
+    static int cc = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        visited = new boolean[n + 1];   // 1 ~ n
-        A = new ArrayList[n + 1];
-        for (int i = 1; i <= n; i++) {
-            A[i] = new ArrayList<>();
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
+        list = new ArrayList[N + 1];
+        visited = new boolean[N + 1];
+        for (int i = 1; i <= N; i++) {
+            list[i] = new ArrayList<>();
         }
-        for (int i = 0; i < m; i++) {
+
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
-            A[u].add(v);
-            A[v].add(u);    // 무방향 중요
+            list[u].add(v);
+            list[v].add(u);
         }
-        int count = 0;
-        for (int i = 1; i <= n; i++) {
+
+        for (int i = 1; i <= N; i++) {
             if (!visited[i]) {
-                count++;
-                DFS(i);
+                cc++;
+                dfs(i);
             }
         }
-        System.out.println(count);
+
+        System.out.print(cc);
     }
 
-    private static void DFS(int v) {
-        if (visited[v]) {
+    static void dfs(int i) {
+        if (visited[i]) {
             return;
         }
-        visited[v] = true;
-        for (int i : A[v]) {
-            if (!visited[i]) {
-                DFS(i);
+        visited[i] = true;
+
+        for (int v : list[i]) {
+            if (!visited[v]) {
+                dfs(v);
             }
         }
     }
