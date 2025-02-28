@@ -1,7 +1,6 @@
 import java.util.*;
 
 class Solution {
-    // 1시간
     public int[] solution(String today, String[] terms, String[] privacies) {
         ArrayList<Integer> answer = new ArrayList<>();
         HashMap<String, Integer> map = new HashMap<>();
