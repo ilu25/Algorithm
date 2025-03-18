@@ -27,11 +27,6 @@ public class Main {
     }
 
     static void divide(int x, int y, int N) {
-        // 종료 조건
-        if (N < 1) {
-            return;
-        }
-
         // 전체 같은 색인지 확인
         boolean isSame = true;
         int nowColor = papers[x][y];
