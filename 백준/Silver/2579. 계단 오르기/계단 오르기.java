@@ -17,7 +17,7 @@ public class Main {
             dp[2] = stairs[1] + stairs[2];
         }
         for (int i = 3; i <= N; i++) {
-            dp[i] += Math.max(dp[i - 3] + stairs[i - 1], dp[i - 2]) + stairs[i];
+            dp[i] = Math.max(dp[i - 3] + stairs[i - 1], dp[i - 2]) + stairs[i];
         }
 
         System.out.println(dp[N]);
