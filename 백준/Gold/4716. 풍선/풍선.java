@@ -24,7 +24,7 @@ public class Main {
             }
 
             // A와 B의 거리 차이가 큰 순으로 정렬
-            Arrays.sort(teams, (a, b) -> Integer.compare(Math.abs(b[1] - b[2]), Math.abs(a[1] - a[2])));
+            Arrays.sort(teams, (a, b) -> Math.abs(b[1] - b[2]) - Math.abs(a[1] - a[2]));
 
             long totalDistance = 0;
             List<int[]> equalDistanceTeams = new ArrayList<>();
@@ -44,6 +44,7 @@ public class Main {
                         balloons -= B;
                         totalDistance += (long)distA * balloons;
                         B = 0;
+                        A -= balloons;
                     }
                 }
                 else if (distA < distB) {  // A가 더 가까운 경우
@@ -55,6 +56,7 @@ public class Main {
                         balloons -= A;
                         totalDistance += (long)distB * balloons;
                         A = 0;
+                        B -= balloons;
                     }
                 }
                 else {
