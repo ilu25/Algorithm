@@ -29,11 +29,11 @@ int solution(vector<int> numbers, int target) {
 }
 
 /*
-    3:46 ~ 
+    3:46 ~ 4:35
     - n개: 음이 아닌 정수
     - 순서 바꾸지 않고 더하기/빼기로 타겟 넘버 만들기
 
     [풀이]
     - DFS: "signal: segmentation fault (core dumped)" -> idx 넘어갈 때 무조건 return
-    - BFS: 시간 초과
+    - BFS: 시간 초과 -> 마찬가지로 인덱스 조심, 문법 주의
 */
