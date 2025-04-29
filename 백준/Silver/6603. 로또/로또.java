@@ -2,56 +2,53 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+	static int k;
 	static int[] numbers;
+	static int[] result;
 	static StringBuilder sb = new StringBuilder();
 	
     public static void main(String[] args) throws IOException {
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    	StringTokenizer st = new StringTokenizer(br.readLine());
-    	int k;
+    	StringTokenizer st;
     	
-    	while ((k = Integer.parseInt(st.nextToken())) != 0) {
+    	while (true) {
+    		st = new StringTokenizer(br.readLine());
+            k = Integer.parseInt(st.nextToken());
     		numbers = new int[k];
+    		result = new int[6];
+    		
+    		if (k == 0) {
+    			break;
+    		}
     		
     		for (int i = 0; i < k; i++) {
     			numbers[i] = Integer.parseInt(st.nextToken());
     		}
     		
-    		for (int i = 0; i < k; i++) {
-    			List<Integer> list = new ArrayList<>();
-    			list.add(numbers[i]);
-    			DFS(k, i, 1, list);
-    		}
-    		
+    		DFS(0, 0);
     		sb.append("\n");
-    		st = new StringTokenizer(br.readLine());
     	}
     	
     	System.out.print(sb);
     }
     
-    static void DFS(int k, int idx, int count, List<Integer> list) {
-    	if (count == 6) {
-    		for (int num : list) {
+    // idx: 시작 인덱스, depth: 0 ~ 5 (6 되면 출력)
+    static void DFS(int idx, int depth) {
+    	if (depth == 6) {
+    		for (int num : result) {
     			sb.append(num).append(" ");
     		}
     		sb.append("\n");
     		return;
     	}
     	
-    	for (int i = idx + 1; i < k; i++) {
-    		list.add(numbers[i]);
-    		DFS(k, i, count + 1, list);
-    		list.remove(list.size() - 1);
+    	for (int i = idx; i < k; i++) {
+    		result[depth] = numbers[i];  
+    		DFS(i + 1, depth + 1);
     	}
     }
 }
 
 /* 
- * 9:40 ~ 10:25
- * - k개 수 중 6개 고르는 모든 경우의 수 (사전순 출력)
- * - 0이 입력되기 전까지 반복
- * 
- * [풀이]
- * - DFS마다 배열들 저장
+ * 다른 풀이: DFS마다 배열 저장하지 않고, 시작 인덱스만 가지고 for문으로 배열 갱신
  */
