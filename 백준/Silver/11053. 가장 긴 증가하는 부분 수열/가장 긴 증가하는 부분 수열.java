@@ -1,45 +1,38 @@
 import java.io.*;
 import java.util.*;
-
+ 
 public class Main {
-    public static void main(String[] args) throws IOException {
-    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    	int N = Integer.parseInt(br.readLine());
-    	int[] A = new int[N];
-    	int[] dp = new int[N];
-    	   	
-    	StringTokenizer st = new StringTokenizer(br.readLine());
-    	for (int i = 0; i < N; i++) {
-    		A[i] = Integer.parseInt(st.nextToken());
-    	}
-    	
-    	for (int i = 0; i < N; i++) {
-    		// 초기화
-			dp[i] = 1;	
-		    
-			// 0 ~ i 이전 원소들 탐색
-			for (int j = 0; j < i; j++) {
-				if (A[j] < A[i]) {
-					dp[i] = Math.max(dp[i], dp[j] + 1);
-				}
-			}
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int N = Integer.parseInt(br.readLine());
+		
+		int[] seq = new int[N];
+		int[] LIS = new int[N];
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		for (int i = 0; i < N; i++) {
+			seq[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		// 최대 길이 탐색 
-		int max = 1;
-		for (int i = 0; i < N; i++) {
-			max = Math.max(max, dp[i]);
+		LIS[0] = seq[0];
+		int idx = 1;
+ 
+		for (int i = 1; i < N; i++) {
+			if (LIS[idx - 1] < seq[i]) {
+				LIS[idx++] = seq[i];
+			}
+			else if (LIS[0] > seq[i]) {
+				LIS[0] = seq[i];
+			}
+			else {
+				int temp = Arrays.binarySearch(LIS, 0, idx, seq[i]);
+				LIS[temp < 0 ? -(temp + 1) : temp] = seq[i];
+			}
 		}
-    	System.out.print(max);
-    }
+		System.out.println(idx);
+	}
 }
-
-/* 
- * 11:02 ~ 11:46 (X)
- * [문제]
- * - 답: 수열 A에서 가장 길게 증가하는 부분 수열 길이
- * - 조건: 수열 크기 = 1 ~ 1000, 수열 요소 = 1 ~ 1000
- * 
- * [정답 풀이]
- * - 각 원소마다 증가하는 길이 저장
-*/
+ 
