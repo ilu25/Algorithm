@@ -12,14 +12,14 @@ class Node implements Comparable<Node> {
 	
 	@Override
 	public int compareTo(Node other) {
-		return this.w -  other.w;
+		return Integer.compare(this.w, other.w);
 	}
 }
 
 public class Main {
 	static int V, E;
 	static List<Node>[] graph;
-	static Integer[] path;	// BFS에서 최단 경로 저장
+	static int[] path;
 	
     public static void main(String[] args) throws IOException {
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,7 +32,9 @@ public class Main {
     	for (int i = 1; i <= V; i++) {
     		graph[i] = new ArrayList<>();
     	}
-    	path = new Integer[V + 1];
+    	
+    	path = new int[V + 1];
+    	Arrays.fill(path, Integer.MAX_VALUE);
     	    	    	
     	st = new StringTokenizer(br.readLine());
     	int s = Integer.parseInt(st.nextToken());
@@ -51,13 +53,7 @@ public class Main {
     	// 모든 정점들의 최단 경로
     	StringBuilder sb = new StringBuilder();
     	for (int i = 1; i <= V; i++) {
-    		if (path[i] == null) {
-    			sb.append("INF");
-    		}
-    		else {
-    			sb.append(path[i]);
-    		}
-    		sb.append('\n');
+    		sb.append(path[i] == Integer.MAX_VALUE ? "INF" : path[i]).append('\n');
     	}
     	System.out.print(sb);
     }
@@ -77,9 +73,7 @@ public class Main {
 
     		for (Node next : graph[cur.e]) {
     			int w = path[cur.e] + next.w;
- 
-    			// 방문하지 않았거나 기존 경로보다 작을 때 업데이트
-    			if (path[next.e] == null || w < path[next.e]) {
+    			if (w < path[next.e]) {
     				path[next.e] = w;
     				q.offer(new Node(next.e, w));
     			}
